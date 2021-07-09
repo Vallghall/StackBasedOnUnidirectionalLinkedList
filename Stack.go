@@ -7,16 +7,16 @@ import (
 
 type node struct {
 	value interface{}
-	next *node
+	next  *node
 }
 
 func (n node) String() string {
-	return fmt.Sprintf("%v",n.value)
+	return fmt.Sprintf("%v", n.value)
 }
 
 type Stack struct {
 	head *node
-	len int
+	len  int
 }
 
 func (s *Stack) push(value interface{}) {
@@ -34,28 +34,29 @@ func (s *Stack) push(value interface{}) {
 }
 
 func (s *Stack) pop() string {
-		if s.head == nil {
-			return "Nothing to pop out: the stack is empty"
-		} else {
-			if s.head.next == nil {
-				return fmt.Sprintf("%v",s.head)
-			}
-			var prev *node
-			current := s.head
-			for ; current.next != nil; current = current.next {
-				prev = current
-			}
-			elem := fmt.Sprintf("%v",current)
-			prev.next = nil
-			return elem
+	s.len -= 1
+	if s.head == nil {
+		return "Nothing to pop out: the stack is empty"
+	} else {
+		if s.head.next == nil {
+			return fmt.Sprintf("%v", s.head)
 		}
+		var prev *node
+		current := s.head
+		for ; current.next != nil; current = current.next {
+			prev = current
+		}
+		elem := fmt.Sprintf("%v", current)
+		prev.next = nil
+		return elem
+	}
 }
 
 func (s Stack) String() string {
 	var sb strings.Builder
 	sb.WriteString("STACK HEAD\n")
 	for current := s.head; current != nil; current = current.next {
-		sb.WriteString(fmt.Sprintf("%v\n",current))
+		sb.WriteString(fmt.Sprintf("%v\n", current))
 	}
 	sb.WriteString("STACK END")
 	return sb.String()
